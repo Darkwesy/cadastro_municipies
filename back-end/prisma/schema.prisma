@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Pessoa {
+  id             Int      @id @unique @default(autoincrement())
+  nome           String
+  idade          Int
+  cpf            String   @unique
+  rg             String   @unique
+  dataNascimento String   @map("data_nascimento")
+  telefone       String
+  cidade         String
+  logradouro     String
+  bairro         String
+  estado         String
+  numero         String
+  cep            String
+  status         Int      @default(dbgenerated("1"))
+  usuario        Usuario?
+
+  @@map("pessoa")
+}
+
+model Usuario {
+  id            Int    @id @unique @default(autoincrement())
+  pessoaId      Int    @unique
+  uuid          String @unique @default(uuid())
+  nomeDeUsuario String @unique
+  hashSenha     String @unique
+  nomeDeDisplay String
+  cargo         String
+  pessoa        Pessoa @relation(fields: [pessoaId], references: [id])
+
+  @@map("usuario")
+}

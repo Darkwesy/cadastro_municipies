@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `pessoa` MODIFY `numero` VARCHAR(191) NOT NULL,
+    MODIFY `status` INTEGER NOT NULL DEFAULT 1;
