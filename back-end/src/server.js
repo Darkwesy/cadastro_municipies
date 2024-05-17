@@ -1,6 +1,6 @@
 import Express from 'express';
 import cors from 'cors';
-import pessoaController from './controllers/pessoaController.js';
+import pessoaController from '../controllers/pessoaController.js';
 
 const app = Express();
 const PORT = process.env.PORT || 3000;
