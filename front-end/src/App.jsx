@@ -14,7 +14,7 @@ export function App() {
       <nav className="p-4 border-b border-zinc-300">
         <Navbar></Navbar>
       </nav>
-      <main className="flex-1 flex flex-col lg:flex-col gap-6 items-center justify-start my-6  bg-white">
+      <main className="flex-1 flex flex-col lg:flex-col gap-6 items-center justify-start sm:justify-center my-6  bg-white">
         <Cadastro></Cadastro>
         <TabelaDados></TabelaDados>
       </main>

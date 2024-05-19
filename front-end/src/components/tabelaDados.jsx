@@ -10,10 +10,21 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { FiTerminal } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 export function TabelaDados() {
   const [data, setData] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,7 +133,40 @@ export function TabelaDados() {
                   </TableCell>
                   <TableCell className="border-zinc-200">
                     <div className="flex flex-row justify-center sm:justify-around gap-4 sm:gap-0">
-                      <Button className="w-14 sm:w-fit text-xs">Editar</Button>
+                      <Dialog open={openDialog}>
+                        <DialogTrigger>
+                          <Button
+                            className="w-14 sm:w-fit text-xs"
+                            onClick={() => setOpenDialog(!openDialog)}
+                          >
+                            Editar
+                          </Button>
+                          <DialogContent>
+                            <DialogHeader>
+                              <p className="font-medium">Atualizar Dados</p>
+                            </DialogHeader>
+                            <DialogFooter>
+                              <div className="flex gap-2 justify-end">
+                                <DialogClose>
+                                  <Button type="Button">
+                                    Salvar Alterações
+                                  </Button>
+                                </DialogClose>
+                                <DialogClose>
+                                  <Button
+                                    type="Button"
+                                    variant="outline"
+                                    className="w-14 sm:w-fit text-xs"
+                                    onClick={() => setOpenDialog(!openDialog)}
+                                  >
+                                    Sair
+                                  </Button>
+                                </DialogClose>
+                              </div>
+                            </DialogFooter>
+                          </DialogContent>
+                        </DialogTrigger>
+                      </Dialog>
                       <Button
                         className="w-14 sm:w-fit text-xs"
                         variant="destructive"
