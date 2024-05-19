@@ -29,12 +29,11 @@ model Pessoa {
 
 model Usuario {
   id            Int    @id @unique @default(autoincrement())
-  pessoaId      Int    @unique
   uuid          String @unique @default(uuid())
-  nomeDeUsuario String @unique
+  nomeDeUsuario String @unique @map("nome_de_usuario")
   hashSenha     String @unique
-  nomeDeDisplay String
   cargo         String
+  pessoaId      Int    @unique @map("pessoa_id")
   pessoa        Pessoa @relation(fields: [pessoaId], references: [id])
 
   @@map("usuario")

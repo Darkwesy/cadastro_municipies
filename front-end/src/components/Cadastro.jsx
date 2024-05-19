@@ -26,7 +26,6 @@ export function Cadastro() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
     try {
       const response = await fetch(`http://localhost:3000/pessoa/create`, {
         method: 'POST',
@@ -38,16 +37,15 @@ export function Cadastro() {
 
       const jsonData = await response.json();
       console.log(jsonData);
-      console.log(response);
     } catch (err) {
       console.error(`Erro ao enviar os dados: ${err}`);
     }
   };
 
   return (
-    <div className="mx-auto my-8 max-w-2xl space-y-6 px-4 sm:px-0 md:px-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl">
+    <div className="w-11/12 sm:w-11/12 lg:w-5/12 h-auto sm:h-5/6 space-y-6 p-6 border rounded-lg shadow-md">
+      <div className="space-y-2 text-start">
+        <h1 className="font-bold text-2xl sm:text-4xl">
           Cadastro de Munícipes
         </h1>
       </div>
@@ -152,11 +150,8 @@ export function Cadastro() {
             <Input name="idade" type="number" onChange={handleChange} />
           </div>
         </div>
-        <div className=" flex justify-end">
-          <Button className="w-1/5 mr-4" variant="outline">
-            Limpar
-          </Button>
-          <Button className="w-1/5" type="submit">
+        <div className="flex justify-center">
+          <Button className="w-full sm:w-ful my-2" type="submit">
             Cadastrar
           </Button>
         </div>

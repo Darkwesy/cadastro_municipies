@@ -1,28 +1,19 @@
-import { Cadastro } from './Screens/Cadastro';
-import { LoginScreen } from './Screens/Login';
-import logoCidade from '/logo.png';
+import { Cadastro } from './components/Cadastro';
+import { Navbar } from './components/navbar';
+import { TabelaDados } from './components/tabelaDados';
 
 export function App() {
   return (
-    <div className="flex flex-col min-h-screen w-full bg-white">
-      <nav className="p-4 bg-zinc-500 drop-shadow-xl text-white">
-        <div className="container mx-auto flex justify-between items-center ">
-          <div className="flex justify-center items-center gap-4">
-            <img
-              src={logoCidade}
-              alt=""
-              className="h-14 drop-shadow-xl
-            "
-            />
-          </div>
-        </div>
+    <div className="flex flex-col min-h-screen w-full g-white">
+      <nav className="p-4 border-b border-zinc-300">
+        <Navbar></Navbar>
       </nav>
-      <main className="flex-1 flex items-center justify-center bg-white">
-        {/* <LoginScreen></LoginScreen> */}
+      <main className="flex-1 flex flex-col lg:flex-row gap-6 items-center sm:items-center lg:items-start my-6 justify-center bg-white">
         <Cadastro></Cadastro>
+        <TabelaDados></TabelaDados>
       </main>
       <footer className="text-zinc-900 p-4 text-end bg-white">
-        <div className="container mx-auto">
+        <div className="px-6 sm:px-20 py-4 text-xs">
           &copy; 2024 Thiago Vinicius (@darkwesy)
         </div>
       </footer>

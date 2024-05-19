@@ -1,7 +1,8 @@
 import Express from 'express';
 import { prisma } from '../config/prisma.js';
-const pessoaController = Express.Router();
+export const pessoaController = Express.Router();
 
+// Rota de busca de registros
 pessoaController.get('/', async (request, response) => {
   const data = await prisma.pessoa.findMany();
 
@@ -11,6 +12,7 @@ pessoaController.get('/', async (request, response) => {
   });
 });
 
+// Rota de criação de registros
 pessoaController.post('/create', async (request, response) => {
   const data = request.body;
 
@@ -81,4 +83,32 @@ pessoaController.post('/create', async (request, response) => {
   }
 });
 
-export default pessoaController;
+pessoaController.put('/delete', async (request, response) => {
+  const { cpf } = request.body;
+
+  try {
+    const updateStatus = await prisma.pessoa.update({
+      where: {
+        cpf,
+      },
+      data: {
+        status: 0,
+      },
+    });
+
+    console.log(updateStatus);
+
+    response.status(200).json({
+      status: 'Sucess',
+    });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({
+      Status: 'Error',
+      Error: {
+        BaseStatus: 'Internal Server Error',
+        Code: `${error}`,
+      },
+    });
+  }
+});
