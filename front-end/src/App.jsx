@@ -1,6 +1,12 @@
 import { Cadastro } from './components/Cadastro';
 import { Navbar } from './components/navbar';
 import { TabelaDados } from './components/tabelaDados';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from './components/ui/accordion';
 
 export function App() {
   return (
@@ -8,7 +14,7 @@ export function App() {
       <nav className="p-4 border-b border-zinc-300">
         <Navbar></Navbar>
       </nav>
-      <main className="flex-1 flex flex-col lg:flex-row gap-6 items-center sm:items-center lg:items-start my-6 justify-center bg-white">
+      <main className="flex-1 flex flex-col lg:flex-col gap-6 items-center justify-start my-6  bg-white">
         <Cadastro></Cadastro>
         <TabelaDados></TabelaDados>
       </main>
