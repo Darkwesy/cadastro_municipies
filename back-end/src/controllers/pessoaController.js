@@ -12,6 +12,20 @@ pessoaController.get('/', async (request, response) => {
   });
 });
 
+pessoaController.get('/:cpf', async (request, response) => {
+  const { cpf } = request.params;
+  const data = await prisma.pessoa.findUnique({
+    where: {
+      cpf,
+    },
+  });
+
+  response.status(200).json({
+    status: 'Sucess',
+    data,
+  });
+});
+
 // Rota de criação de registros
 pessoaController.post('/create', async (request, response) => {
   const data = request.body;
@@ -93,6 +107,50 @@ pessoaController.put('/delete', async (request, response) => {
       },
       data: {
         status: 0,
+      },
+    });
+
+    console.log(updateStatus);
+
+    response.status(200).json({
+      status: 'Sucess',
+    });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({
+      Status: 'Error',
+      Error: {
+        BaseStatus: 'Internal Server Error',
+        Code: `${error}`,
+      },
+    });
+  }
+});
+
+pessoaController.put('/update', async (request, response) => {
+  const { formData, cpf } = request.body;
+
+  console.log(formData);
+  console.log(cpf);
+
+  try {
+    const updateStatus = await prisma.pessoa.update({
+      where: {
+        cpf,
+      },
+      data: {
+        nome: formData.nome,
+        telefone: formData.telefone,
+        cpf: formData.cpf,
+        rg: formData.rg,
+        dataNascimento: formData.dataNascimento,
+        idade: formData.idade,
+        cidade: formData.cidade,
+        logradouro: formData.logradouro,
+        bairro: formData.bairro,
+        estado: formData.estado,
+        numero: formData.numero,
+        cep: formData.cep,
       },
     });
 

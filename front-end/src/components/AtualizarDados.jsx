@@ -1,17 +1,18 @@
+// FormUpdate.jsx
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '../components/ui/accordion';
+} from './ui/accordion';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { FiTerminal } from 'react-icons/fi';
 
-export function Cadastro() {
+export function FormUpdate({ cpf }) {
   const [formData, setFormData] = useState({
     nome: '',
     idade: '',
@@ -26,27 +27,62 @@ export function Cadastro() {
     logradouro: '',
     numero: '',
   });
-
   const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (cpf) {
+        try {
+          const response = await fetch(`http://localhost:3000/pessoa/${cpf}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const dataApi = await response.json();
+          setFormData(dataApi.data);
+        } catch (error) {
+          console.error('Erro ao buscar dados:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [cpf]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const objectUpdate = {
+      formData,
+      cpf,
+    };
     try {
-      const response = await fetch(`http://localhost:3000/pessoa/create`, {
-        method: 'POST',
+      const response = await fetch(`http://localhost:3000/pessoa/update`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(objectUpdate),
       });
 
       const jsonData = await response.json();
-      console.log(jsonData);
+
+      if (jsonData.Status === 'Error') {
+        setAlertMessage('Erro ao atualizar os dados!');
+      } else {
+        setAlertMessage('Dados Atualizados com sucesso!');
+      }
       setShowAlert(true);
 
       setTimeout(() => {
@@ -68,16 +104,12 @@ export function Cadastro() {
           <Alert>
             <FiTerminal className="h-4 w-4" />
             <AlertTitle>Notificação</AlertTitle>
-            <AlertDescription>
-              Dados registrados no banco de dados com sucesso!
-            </AlertDescription>
+            <AlertDescription>{alertMessage}</AlertDescription>
           </Alert>
         </div>
       )}
       <div className="space-y-2 text-start">
-        <h1 className="font-bold text-2xl sm:text-4xl">
-          Cadastro de Munícipes
-        </h1>
+        <h1 className="font-bold text-2xl sm:text-4xl">Atualizar Cadastro</h1>
       </div>
       <CadastroForm
         formData={formData}
@@ -251,8 +283,8 @@ function CadastroForm({ formData, setFormData, handleChange, handleSubmit }) {
         </AccordionItem>
       </Accordion>
       <div className="flex justify-center">
-        <Button className="w-full sm:w-ful my-2" type="submit">
-          Cadastrar
+        <Button className="w-full sm:w-full my-2" type="submit">
+          <a href="#">Atualizar</a>
         </Button>
       </div>
     </form>
