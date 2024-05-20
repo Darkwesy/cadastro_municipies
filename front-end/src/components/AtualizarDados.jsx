@@ -12,7 +12,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { FiTerminal } from 'react-icons/fi';
 
-export function FormUpdate({ cpf }) {
+export function FormUpdate({ cpf, onSectionChange }) {
   const [formData, setFormData] = useState({
     nome: '',
     idade: '',
@@ -87,7 +87,8 @@ export function FormUpdate({ cpf }) {
 
       setTimeout(() => {
         setShowAlert(false);
-      }, 5000);
+        onSectionChange('database');
+      }, 3000);
     } catch (err) {
       console.error(`Erro ao enviar os dados: ${err}`);
     }

@@ -144,7 +144,7 @@ pessoaController.put('/update', async (request, response) => {
         cpf: formData.cpf,
         rg: formData.rg,
         dataNascimento: formData.dataNascimento,
-        idade: formData.idade,
+        idade: parseInt(formData.idade),
         cidade: formData.cidade,
         logradouro: formData.logradouro,
         bairro: formData.bairro,

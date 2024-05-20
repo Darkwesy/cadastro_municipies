@@ -36,7 +36,10 @@ export function App() {
           <TabelaDados onCPFChange={handleCPFChange}></TabelaDados>
         )}
         {currentSection === 'update' && (
-          <FormUpdate cpf={selectedCPF}></FormUpdate>
+          <FormUpdate
+            cpf={selectedCPF}
+            onSectionChange={handleSectionChange}
+          ></FormUpdate>
         )}
       </main>
       <footer className="text-zinc-900 p-4 text-end bg-white">
