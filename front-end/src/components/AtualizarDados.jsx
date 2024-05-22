@@ -285,7 +285,7 @@ function CadastroForm({ formData, setFormData, handleChange, handleSubmit }) {
       </Accordion>
       <div className="flex justify-center">
         <Button className="w-full sm:w-full my-2" type="submit">
-          <a href="#">Atualizar</a>
+          Atualizar
         </Button>
       </div>
     </form>
