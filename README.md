@@ -80,20 +80,20 @@ Projeto de CRUD solicitado pelo professor Marcos Vinicius com escopo de tecnolig
 
 - Retorna o Status e se ocorrer erro retorna o seu código de erro
 
-#### Atualiza uma pessoa
+#### Deletar registro de uma pessoa
 
 ```http
-  POST /pessoa/delete
+  PUT /pessoa/delete
 ```
 
 | Corpo | Tipo     | Descrição                                    |
 | :---- | :------- | :------------------------------------------- |
 | `cpf` | `string` | **Obrigatório**. O CPF do item que você quer |
 
-#### Atualiza uma pessoa
+#### Atualiza registro de uma pessoa
 
 ```http
-  POST /pessoa/update
+  PUT /pessoa/update
 ```
 
 | Corpo            | Tipo     |
